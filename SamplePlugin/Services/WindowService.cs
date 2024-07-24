@@ -9,11 +9,11 @@ namespace SamplePlugin;
 
 public class WindowService : IHostedService
 {
-    public DalamudPluginInterface PluginInterface { get; }
+    public IDalamudPluginInterface PluginInterface { get; }
     public IEnumerable<Window> PluginWindows { get; }
     public WindowSystem WindowSystem { get; }
 
-    public WindowService(DalamudPluginInterface pluginInterface, IEnumerable<Window> pluginWindows, WindowSystem windowSystem)
+    public WindowService(IDalamudPluginInterface pluginInterface, IEnumerable<Window> pluginWindows, WindowSystem windowSystem)
     {
         PluginInterface = pluginInterface;
         PluginWindows = pluginWindows;

@@ -16,9 +16,9 @@ public sealed class Plugin : IDalamudPlugin
     private readonly IHost _host;
 
     public Plugin(
-        [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-        [RequiredVersion("1.0")] ICommandManager commandManager,
-        [RequiredVersion("1.0")] ITextureProvider textureProvider)
+        IDalamudPluginInterface pluginInterface,
+        ICommandManager commandManager,
+        ITextureProvider textureProvider)
     {
         _host = new HostBuilder()
                 .UseContentRoot(pluginInterface.ConfigDirectory.FullName)
@@ -46,7 +46,7 @@ public sealed class Plugin : IDalamudPlugin
                     //Add configuration
                     collection.AddSingleton((s) =>
                     {
-                       var dalamudPluginInterface = s.GetRequiredService<DalamudPluginInterface>();
+                       var dalamudPluginInterface = s.GetRequiredService<IDalamudPluginInterface>();
                        var configuration = dalamudPluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
                        configuration.Initialize(dalamudPluginInterface);
                        return configuration;

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Numerics;
-using Dalamud.Interface.Internal;
+using Dalamud.Interface.Textures;
+using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
@@ -14,14 +15,14 @@ public class MainWindow : Window, IDisposable
 {
     public Configuration Configuration { get; }
     public ITextureProvider TextureProvider { get; }
-    public DalamudPluginInterface PluginInterface { get; }
+    public IDalamudPluginInterface PluginInterface { get; }
     public ConfigWindow ConfigWindow { get; }
-    private IDalamudTextureWrap? GoatImage;
+    private ISharedImmediateTexture? GoatImage;
 
     // We give this window a hidden ID using ##
     // So that the user will see "My Amazing Window" as window title,
     // but for ImGui the ID is "My Amazing Window##With a hidden ID"
-    public MainWindow(Configuration configuration, ITextureProvider textureProvider, DalamudPluginInterface pluginInterface, ConfigWindow configWindow)
+    public MainWindow(Configuration configuration, ITextureProvider textureProvider, IDalamudPluginInterface pluginInterface, ConfigWindow configWindow)
         : base("My Amazing Window##With a hidden ID", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
         Configuration = configuration;
@@ -35,7 +36,7 @@ public class MainWindow : Window, IDisposable
         };
 
         var file = new FileInfo(Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png"));
-        GoatImage = textureProvider.GetTextureFromFile(file);
+        GoatImage = textureProvider.GetFromFile(file);
     }
 
     public void Dispose() { }
@@ -55,7 +56,7 @@ public class MainWindow : Window, IDisposable
         if (GoatImage != null)
         {
             ImGuiHelpers.ScaledIndent(55f);
-            ImGui.Image(GoatImage.ImGuiHandle, new Vector2(GoatImage.Width, GoatImage.Height));
+            ImGui.Image(GoatImage.GetWrapOrEmpty().ImGuiHandle, new Vector2(210, 203));
             ImGuiHelpers.ScaledIndent(-55f);
         }
         else

@@ -10,11 +10,11 @@ namespace SamplePlugin;
 
 public class InstallerWindowService : IHostedService
 {
-    public DalamudPluginInterface PluginInterface { get; }
+    public IDalamudPluginInterface PluginInterface { get; }
     public ConfigWindow ConfigWindow { get; }
     public MainWindow MainWindow { get; }
 
-    public InstallerWindowService(DalamudPluginInterface pluginInterface, ConfigWindow configWindow, MainWindow mainWindow)
+    public InstallerWindowService(IDalamudPluginInterface pluginInterface, ConfigWindow configWindow, MainWindow mainWindow)
     {
         PluginInterface = pluginInterface;
         ConfigWindow = configWindow;
