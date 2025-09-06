@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Numerics;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Textures;
-using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using ImGuiNET;
 
 namespace SamplePlugin.Windows;
 
@@ -56,7 +55,7 @@ public class MainWindow : Window, IDisposable
         if (GoatImage != null)
         {
             ImGuiHelpers.ScaledIndent(55f);
-            ImGui.Image(GoatImage.GetWrapOrEmpty().ImGuiHandle, new Vector2(210, 203));
+            ImGui.Image(GoatImage.GetWrapOrEmpty().Handle, new Vector2(210, 203));
             ImGuiHelpers.ScaledIndent(-55f);
         }
         else
